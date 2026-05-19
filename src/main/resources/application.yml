@@ -1,21 +1,67 @@
 spring:
   application:
-    name: CatchPro
+    name: catchpro
 
+  # 1. Database (MySQL 8.0) 설정
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/catchpro?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=Asia/Seoul&characterEncoding=UTF-8
+    username: root
+    password: root
+    hikari:
+      maximum-pool-size: 20 # 대용량 트래픽을 고려해 커넥션 풀 살짝 늘림 (기본값 10)
+      minimum-idle: 10
+
+  # 2. JPA & Hibernate 설정
+  jpa:
+    hibernate:
+      ddl-auto: update # 개발 초기에는 update, 실무/운영에서는 배포 시 validate 또는 none
+    properties:
+      hibernate:
+        show_sql: true
+        format_sql: true
+        default_batch_fetch_size: 100 # N+1 문제 방지 및 대량 데이터 최적화
+
+  # 3. Cache & Lock (Redis) 설정
+  data:
+    redis:
+      host: localhost
+      port: 6379
+
+  # 4. Message Queue (Kafka) 설정
+  kafka:
+    bootstrap-servers: localhost:9092
+    consumer:
+      group-id: catchpro-group
+      auto-offset-reset: earliest # 큐에 쌓인 데이터 처음부터 읽기
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.apache.kafka.common.serialization.StringSerializer
+
+# 5. API 문서화 (Swagger / Springdoc) 설정
 springdoc:
   swagger-ui:
-    path: /swagger-ui.html    # 브라우저에서 접속할 경로
+    path: /swagger-ui.html
     groups-order: DESC
-    operations-sorter: method # GET, POST 등 HTTP 메서드순 정렬
+    operations-sorter: method
   api-docs:
     path: /api-docs
 
+# 6. 시스템 모니터링 (Actuator & Prometheus) 설정
 management:
   endpoints:
     web:
       exposure:
-        include: "prometheus,health,info" # 프로메테우스용 엔드포인트 개방
+        include: "prometheus,health,info"
   metrics:
     tags:
-      application: catchpro
+      application: ${spring.application.name}
 
+# 7. 로깅 시스템 체계화
+logging:
+  level:
+    root: INFO
+    org.hibernate.SQL: DEBUG # SQL 쿼리는 로그로 상세히 보기
+    com.junsangCho.CatchPro: DEBUG # 내가 작성할 코드 로그 레벨
