@@ -1,0 +1,9 @@
+{
+  "name": "Java 25 Project with Wrapper",
+  "image": "mcr.microsoft.com/devcontainers/java:25",
+  "customizations": {
+    "jetbrains": {
+      "backend": "IntelliJ"
+    }
+  }
+}
