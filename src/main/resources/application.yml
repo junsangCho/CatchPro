@@ -1,0 +1,21 @@
+spring:
+  application:
+    name: CatchPro
+
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html    # 브라우저에서 접속할 경로
+    groups-order: DESC
+    operations-sorter: method # GET, POST 등 HTTP 메서드순 정렬
+  api-docs:
+    path: /api-docs
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "prometheus,health,info" # 프로메테우스용 엔드포인트 개방
+  metrics:
+    tags:
+      application: catchpro
+
