@@ -1,0 +1,140 @@
+@user = Bearer eyJhbGciOiJIUzUxMiJ9.eyJhdXRob3JpdGllcyI6W3siYXV0aG9yaXR5IjoiUk9MRV9VU0VSIn1dLCJ1c2VybmFtZSI6Induc3RrZGRsOTBAbmF2ZXIuY29tIiwiaWF0IjoxNzc5NTE4ODMwLCJleHAiOjE4MTU1MTg4MzB9.rlevD6vcYNDXylrFxdBvoXfNN-akIZOcEI_xvtQKrGIPABhcrJEj3n-Rw5JSs4c8Al_rT3gqMfLSVRbx6UoeqQ
+
+
+GET http://localhost:8080/
+Content-Type: application/json
+
+###
+# AUTH
+###
+POST http://localhost:8080/auth/login
+Content-Type: application/json
+
+{
+  "email": "wnstkddl90@naver.com",
+  "password": "Vlzkcb_!@12"
+}
+
+###
+# USER
+###
+POST http://localhost:8082/users/join
+Content-Type: application/json
+
+{
+  "id": "wnstkddl90d",
+  "name": "조준상",
+  "password": "Vlzkcb_!@12"
+}
+
+###
+# STORE
+###
+GET http://localhost:8082/stores
+Content-Type: application/json
+Authorization: {{user}}}
+
+###
+GET http://localhost:8082/stores/2
+Content-Type: application/json
+Authorization: {{user}}}
+
+###
+POST http://localhost:8082/stores
+Content-Type: application/json
+Authorization: {{user}}}
+
+{
+  "name": "상봉지점",
+  "address": "중랑구 상봉동",
+  "hotline": "02-3491-3433"
+}
+
+###
+PATCH http://localhost:8082/stores/1
+Content-Type: application/json
+Authorization: {{user}}}
+
+{
+  "name": "상봉",
+  "address": "중랑구",
+  "hotline": "02-3491-3431",
+  "enable": true
+}
+
+###
+# MENU
+###
+GET http://localhost:8082/stores/1/menus/1
+Content-Type: application/json
+Authorization: {{user}}}
+
+###
+POST http://localhost:8082/stores/2/menus
+Content-Type: application/json
+Authorization: {{user}}}
+
+{
+  "menuDate": "2025-08-27",
+  "mealType": "BREAKFAST",
+  "menuItemNames": [
+    "깍두기",
+    "소고기무국",
+    "계란장조림",
+    "멸치볶음",
+    "오징어젓갈"
+  ]
+
+}
+
+###
+PATCH http://localhost:8082/stores/1/menus/1
+Content-Type: application/json
+Authorization: {{user}}}
+
+{
+  "menuDate": "2025-08-28",
+  "mealType": "LUNCH",
+  "menuItemNames": [
+    "배추김치",
+    "육계장",
+    "불고기",
+    "고등어조림",
+    "어묵볶음"
+  ]
+}
+
+###
+# PRODUCT
+###
+GET http://localhost:8082/products
+Content-Type: application/json
+Authorization: {{user}}}
+
+###
+GET http://localhost:8082/products/1
+Content-Type: application/json
+Authorization: {{user}}}
+
+###
+POST http://localhost:8082/products
+Content-Type: application/json
+Authorization: {{user}}}
+
+{
+  "name": "10개",
+  "price": 54000,
+  "ticketAmount": 10
+}
+
+###
+# TICKET_WALLET
+###
+GET http://localhost:8082/ticket-wallet
+Content-Type: application/json
+Authorization: {{user}}}
+
+###
+GET http://localhost:8082/ticket-wallet/1
+Content-Type: application/json
+Authorization: {{user}}}

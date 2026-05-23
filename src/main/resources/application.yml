@@ -1,8 +1,15 @@
 spring:
   application:
     name: catchpro
+  profiles:
+    active: prd
+  servlet:
+    multipart:
+      max-file-size: 5MB
+      max-request-size: 5MB
 
-  # 1. Database (MySQL 8.0) 설정
+
+  # Database (MySQL 8.0) 설정
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://localhost:3306/catchpro?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=Asia/Seoul&characterEncoding=UTF-8
@@ -11,24 +18,31 @@ spring:
     hikari:
       maximum-pool-size: 20 # 대용량 트래픽을 고려해 커넥션 풀 살짝 늘림 (기본값 10)
       minimum-idle: 10
+      connection-timeout: 3000
+      validation-timeout: 3000
+      max-lifetime: 240000
 
-  # 2. JPA & Hibernate 설정
+  sql:
+    init:
+      mode:  # data.sql 파일을 항상 실행하도록 강제합니다.
+
+  # JPA & Hibernate 설정
   jpa:
     hibernate:
-      ddl-auto: update # 개발 초기에는 update, 실무/운영에서는 배포 시 validate 또는 none
+      ddl-auto: create # 테스트를 위해 어플리케이션이 시작될때마다 초기상태 유지
     properties:
       hibernate:
         show_sql: true
         format_sql: true
         default_batch_fetch_size: 100 # N+1 문제 방지 및 대량 데이터 최적화
 
-  # 3. Cache & Lock (Redis) 설정
+  # Cache & Lock (Redis) 설정
   data:
     redis:
       host: localhost
       port: 6379
 
-  # 4. Message Queue (Kafka) 설정
+  # Message Queue (Kafka) 설정
   kafka:
     bootstrap-servers: localhost:9092
     consumer:
@@ -40,7 +54,7 @@ spring:
       key-serializer: org.apache.kafka.common.serialization.StringSerializer
       value-serializer: org.apache.kafka.common.serialization.StringSerializer
 
-# 5. API 문서화 (Swagger / Springdoc) 설정
+# API 문서화 (Swagger / Springdoc) 설정
 springdoc:
   swagger-ui:
     path: /swagger-ui.html
@@ -48,8 +62,13 @@ springdoc:
     operations-sorter: method
   api-docs:
     path: /api-docs
+  show-actuator: true
+  default-consumes-media-type: application/json
+  default-produces-media-type: application/json
+  paths-to-match:
+    - /**
 
-# 6. 시스템 모니터링 (Actuator & Prometheus) 설정
+# 시스템 모니터링 (Actuator & Prometheus) 설정
 management:
   endpoints:
     web:
@@ -59,9 +78,18 @@ management:
     tags:
       application: ${spring.application.name}
 
-# 7. 로깅 시스템 체계화
+# JWT 관련 설정
+app:
+  jwt:
+    secret: eyJOaWNrTmFtZSI6IkVyanVlciIsIlRlbXBBdXRoIjoiWSIsIktFWSI6IkhlbGxvV29ybGQiLCJBZ2UiOiIyOSIsInN1YiI6IlRlc3QiLCJleHAiOjE2MzUxNzg4NTF1
+    expiration: 36000000000
+
+#로깅 시스템 체계화
 logging:
   level:
     root: INFO
     org.hibernate.SQL: DEBUG # SQL 쿼리는 로그로 상세히 보기
     com.junsangCho.CatchPro: DEBUG # 내가 작성할 코드 로그 레벨
+    com.zaxxer.hikari.HikariConfig: DEBUG
+  pattern:
+    console: "%d{HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n"

@@ -42,5 +42,10 @@ services:
     image: grafana/grafana:latest
     ports:
       - "3000:3000"
+    volumes:
+      - grafana-data:/var/lib/grafana   # (그라파나 데이터를 도커 볼륨에 저장)
     links:
       - prometheus
+
+volumes:
+  grafana-data:
