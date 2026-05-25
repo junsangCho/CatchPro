@@ -1,7 +1,7 @@
 package junsang.cho.catchpro.jwt.application.service;
 
 import junsang.cho.catchpro.jwt.infrastructure.UserPrincipal;
-import junsang.cho.catchpro.user.application.repository.UserRepository;
+import junsang.cho.catchpro.user.infrastructure.persistence.UserJpaRepository;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -15,11 +15,11 @@ import org.springframework.stereotype.Service;
 @Slf4j
 public class UserDetailsServiceImpl implements UserDetailsService {
 
-    private final UserRepository userRepository;
+    private final UserJpaRepository userJpaRepository;
 
     @Override
     public UserDetails loadUserByUsername(@NonNull String email) throws UsernameNotFoundException {
-        return userRepository.getUser(email)
+        return userJpaRepository.getUser(email)
                 .map(UserPrincipal::new)
                 .orElseThrow(()-> new UsernameNotFoundException("User not found"));
     }

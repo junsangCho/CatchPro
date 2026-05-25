@@ -20,7 +20,7 @@ public class UserController {
 
     @PostMapping("/join")
     public CommonResponse<?> joinUser(@Valid @RequestBody JoinRequest request) {
-        var paramVO = JoinCommand.of(request);
+        var paramVO = request.toCommand();
 
         userService.joinUser(paramVO);
 

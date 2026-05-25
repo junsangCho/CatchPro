@@ -1,6 +1,6 @@
 package junsang.cho.catchpro.jwt.infrastructure;
 
-import junsang.cho.catchpro.user.infrastructure.persistence.projection.UserInfo;
+import junsang.cho.catchpro.user.domain.repository.projection.UserInfo;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 

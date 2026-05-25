@@ -1,4 +1,4 @@
-package junsang.cho.catchpro.user.infrastructure.persistence.projection;
+package junsang.cho.catchpro.user.domain.repository.projection;
 
 import junsang.cho.catchpro.user.domain.Role;
 import junsang.cho.catchpro.user.domain.User;

@@ -4,8 +4,8 @@ import com.querydsl.core.BooleanBuilder;
 import com.querydsl.core.types.Projections;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQueryFactory;
-import junsang.cho.catchpro.user.application.repository.UserRepositoryCustom;
-import junsang.cho.catchpro.user.infrastructure.persistence.projection.UserInfo;
+import junsang.cho.catchpro.user.domain.repository.UserRepositoryCustom;
+import junsang.cho.catchpro.user.domain.repository.projection.UserInfo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 

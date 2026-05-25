@@ -1,6 +1,6 @@
 package junsang.cho.catchpro.auth.presentation.dto.response;
 
-import junsang.cho.catchpro.user.infrastructure.persistence.projection.UserInfo;
+import junsang.cho.catchpro.user.domain.repository.projection.UserInfo;
 import lombok.Getter;
 import lombok.ToString;
 

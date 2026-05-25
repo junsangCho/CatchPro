@@ -16,12 +16,5 @@ public class JoinCommand {
     private final Role role;
 
 
-    public static JoinCommand of(JoinRequest request) {
-        return JoinCommand.builder()
-                .email(request.getEmail())
-                .password(request.getPassword())
-                .name(request.getName())
-                .role(Role.ROLE_USER)
-                .build();
-    }
+
 }
