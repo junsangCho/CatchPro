@@ -17,7 +17,7 @@ import static junsang.cho.catchpro.user.domain.QUser.user;
 
 @RequiredArgsConstructor
 @Repository
-public class UserRepositoryImpl implements UserRepositoryCustom {
+public class UserJpaRepositoryImpl implements UserRepositoryCustom {
 
     private final JPAQueryFactory jpaQueryFactory;
 

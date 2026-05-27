@@ -10,12 +10,14 @@ import jakarta.servlet.http.HttpServletRequestWrapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
+import org.springframework.util.AntPathMatcher;
 import org.springframework.web.filter.OncePerRequestFilter;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.multipart.MultipartResolver;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
@@ -31,13 +33,25 @@ public class ServletLoggingFilter extends OncePerRequestFilter {
 
     private final MultipartResolver multipartResolver;
 
+    private final AntPathMatcher pathMatcher = new AntPathMatcher();
+
+    private static final List<String> EXCLUDE_PATTERNS = List.of(
+            "/",
+            "/actuator/**",
+            "/swagger-ui/**",
+            "/v3/api-docs/**"
+    );
+
+    @Override
+    protected boolean shouldNotFilter(HttpServletRequest request) {
+        String path = request.getRequestURI();
+
+        return EXCLUDE_PATTERNS.stream()
+                .anyMatch(pattern -> pathMatcher.match(pattern, path));
+    }
+
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
-        //health check 통과
-        if ("/".equals(request.getServletPath())){
-            filterChain.doFilter(request, response);
-            return;
-        }
 
         log.info("======================= Request Log =======================");
         log.info("요청 URL: {} {}", request.getMethod(), request.getRequestURL());
