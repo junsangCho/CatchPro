@@ -14,6 +14,8 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 public class UserInfo {
     private Long id;
+    private String loginId;
+    private String userUid;
     private String email;
     private String password;
     private String name;
@@ -24,6 +26,8 @@ public class UserInfo {
 
     public UserInfo(User user){
         this.id = user.getId();
+        this.loginId = user.getLoginId();
+        this.userUid = user.getUserUid();
         this.email = user.getEmail();
         this.password = user.getPassword();
         this.name = user.getName();

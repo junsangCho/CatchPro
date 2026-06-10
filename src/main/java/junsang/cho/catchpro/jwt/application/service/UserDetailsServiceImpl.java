@@ -18,8 +18,8 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     private final UserJpaRepository userJpaRepository;
 
     @Override
-    public UserDetails loadUserByUsername(@NonNull String email) throws UsernameNotFoundException {
-        return userJpaRepository.getUser(email)
+    public UserDetails loadUserByUsername(@NonNull String loginId) throws UsernameNotFoundException {
+        return userJpaRepository.getUser(loginId)
                 .map(UserPrincipal::new)
                 .orElseThrow(()-> new UsernameNotFoundException("User not found"));
     }

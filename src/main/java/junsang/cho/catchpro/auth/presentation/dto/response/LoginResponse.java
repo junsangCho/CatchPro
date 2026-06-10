@@ -9,12 +9,14 @@ import lombok.ToString;
 public class LoginResponse {
     private final Long loginId;
     private final String name;
+    private final String email;
     private final String token;
 
 
     public LoginResponse(UserInfo userInfo, String token) {
         this.loginId = userInfo.getId();
         this.name = userInfo.getName();
+        this.email = userInfo.getEmail();
         this.token = token;
     }
 }

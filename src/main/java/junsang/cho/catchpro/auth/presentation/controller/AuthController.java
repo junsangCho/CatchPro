@@ -22,13 +22,11 @@ public class AuthController {
     private final AuthService authService;
     private final UserService userService;
 
-    private final JwtTokenProvider jwtTokenProvider;
-
     @PostMapping("/login")
     public CommonResponse<?> login(@RequestBody LoginRequest request){
-        var userDetails = authService.authenticateUser(request);
-        String token = jwtTokenProvider.generateToken(userDetails);
-        var user = userService.getUser(userDetails.getUsername());
+        String token = authService.authenticateUser(request);
+
+        var user = userService.getUser(request.getLoginId());
         var response = new LoginResponse(user, token);
 
         return CommonResponse.success(response);

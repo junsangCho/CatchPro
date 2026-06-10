@@ -1,11 +1,11 @@
 package junsang.cho.catchpro.auth.application.service;
 
 import junsang.cho.catchpro.auth.presentation.dto.request.LoginRequest;
+import junsang.cho.catchpro.jwt.infrastructure.JwtTokenProvider;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -13,11 +13,12 @@ import org.springframework.stereotype.Service;
 public class AuthService {
 
     private final AuthenticationManager authenticationManager;
+    private final JwtTokenProvider jwtTokenProvider;
 
-    public UserDetails authenticateUser(LoginRequest request) {
+    public String authenticateUser(LoginRequest request) {
         Authentication authentication = authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(request.getEmail(), request.getPassword()));
+                new UsernamePasswordAuthenticationToken(request.getLoginId(), request.getPassword()));
 
-        return (UserDetails) authentication.getPrincipal();
+        return jwtTokenProvider.createAccessToken(authentication);
     }
 }

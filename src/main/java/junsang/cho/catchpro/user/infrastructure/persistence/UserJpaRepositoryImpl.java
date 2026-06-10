@@ -22,16 +22,18 @@ public class UserJpaRepositoryImpl implements UserRepositoryCustom {
     private final JPAQueryFactory jpaQueryFactory;
 
     @Override
-    public Optional<UserInfo> getUser(String email) {
+    public Optional<UserInfo> getUser(String loginId) {
         return Optional.ofNullable(jpaQueryFactory.select(Projections.fields(UserInfo.class,
                         user.id,
+                        user.userUid,
+                        user.loginId,
                         user.email,
                         user.password,
                         user.role,
                         user.status
                         ))
                 .from(user)
-                .where(nullSafeBooleanBuilder(()->user.email.eq(email)))
+                .where(nullSafeBooleanBuilder(()->user.loginId.eq(loginId)))
                 .fetchOne());
     }
 

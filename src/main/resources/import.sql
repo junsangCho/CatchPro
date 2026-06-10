@@ -1,6 +1,6 @@
 -- USERS
-INSERT INTO  users (email, password, name, role, status, created_at, updated_at) values('wnstkddl90@naver.com','$2a$10$h2uH7sk60HAldUEvJ/0YW.Ki4XxMjpM5wARtphaA/R.UauXu3uUc2','조준상','ROLE_USER','ACTIVE','2025-08-18 13:07:53', '2025-08-18 13:07:59');
-INSERT INTO  users (email, password, name, role, status, created_at, updated_at) values('hanb123@naver.com','$2a$10$h2uH7sk60HAldUEvJ/0YW.Ki4XxMjpM5wARtphaA/R.UauXu3uUc2','진한별','ROLE_USER','ACTIVE','2025-08-18 13:08:57', '2025-08-18 13:09:01');
+INSERT INTO  users (user_uid, login_id, email, password, name, role, status, created_at, updated_at) values('01J7Z3Z3J3S4F9V4M7XQ1D8WAB','wnstkddl90','wnstkddl90@naver.com','$2a$10$h2uH7sk60HAldUEvJ/0YW.Ki4XxMjpM5wARtphaA/R.UauXu3uUc2','조준상','ROLE_USER','ACTIVE','2025-08-18 13:07:53', '2025-08-18 13:07:59');
+INSERT INTO  users (user_uid, login_id, email, password, name, role, status, created_at, updated_at) values('01J8A7Z1VJH0F8KX8M6H1N3R9P','hanb123','hanb123@naver.com','$2a$10$h2uH7sk60HAldUEvJ/0YW.Ki4XxMjpM5wARtphaA/R.UauXu3uUc2','진한별','ROLE_USER','ACTIVE','2025-08-18 13:08:57', '2025-08-18 13:09:01');
 --
 -- -- PAYMENT
 -- INSERT INTO PUBLIC.PAYMENT (USER_ID, CUSTOMER_KEY, ORDER_ID, AMOUNT, PAYMENT_TYPE, STATUS, APPROVED_DATE, CREATED_DATE, UPDATED_DATE) VALUES ('wnstkddl90', '01J7Z3Z3J3S4F9V4M7XQ1D8WAB', 'asldkjnm1212', 7, 'ori', 'SUCCESS','2025-08-19 13:07:59', '2025-08-19 13:07:53', '2025-08-19 13:07:59');

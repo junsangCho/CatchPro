@@ -1,5 +1,6 @@
 package junsang.cho.catchpro.auth.presentation.dto.request;
 
+import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
 import junsang.cho.catchpro.user.application.dto.command.JoinCommand;
@@ -14,6 +15,10 @@ import lombok.ToString;
 public class JoinRequest {
 
     @NotBlank
+    private String loginId;
+
+    @NotBlank
+    @Email
     private String email;
 
     private String name;
@@ -25,6 +30,7 @@ public class JoinRequest {
 
     public JoinCommand toCommand() {
         return JoinCommand.builder()
+                .loginId(this.loginId)
                 .email(this.email)
                 .password(this.password)
                 .name(this.name)

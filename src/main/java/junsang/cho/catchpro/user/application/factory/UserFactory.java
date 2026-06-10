@@ -9,6 +9,7 @@ public class UserFactory {
 
     public static User create(JoinCommand request, String encodedPassword) {
         return User.builder()
+                .loginId(request.getLoginId())
                 .email(request.getEmail())
                 .password(encodedPassword)
                 .name(request.getName())

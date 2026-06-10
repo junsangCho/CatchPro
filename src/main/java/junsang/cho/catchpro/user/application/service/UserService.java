@@ -18,17 +18,17 @@ public class UserService {
 
     public void joinUser(JoinCommand request) {
         String encodedPassword = passwordEncoder.encode(request.getPassword());
-        userExists(request.getEmail());
+        userExists(request.getLoginId());
 
         userJpaRepository.save(UserFactory.create(request, encodedPassword));
     }
 
-    public UserInfo getUser(String email){
-        return userJpaRepository.getUser(email).orElseThrow();
+    public UserInfo getUser(String loginId){
+        return userJpaRepository.getUser(loginId).orElseThrow();
     }
 
-    public void userExists(String email) {
-        if(userJpaRepository.existsByEmail(email)){
+    public void userExists(String loginId) {
+        if(userJpaRepository.existsByLoginId(loginId)){
             throw new IllegalArgumentException();
         }
     }
