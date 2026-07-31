@@ -3,6 +3,7 @@ package junsang.cho.catchpro.jwt.infrastructure;
 
 import junsang.cho.catchpro.user.domain.repository.projection.UserInfo;
 import lombok.AllArgsConstructor;
+import lombok.Getter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -13,6 +14,7 @@ import java.util.List;
 @AllArgsConstructor
 public class UserPrincipal implements UserDetails {
 
+    @Getter
     private final String userUid; // 핵심 식별자 추가!
     private final String loginId;
     private final String password;
@@ -67,7 +69,4 @@ public class UserPrincipal implements UserDetails {
     @Override
     public boolean isEnabled() { return isActive; }
 
-    public Object getUserUid() {
-        return userUid;
-    }
 }

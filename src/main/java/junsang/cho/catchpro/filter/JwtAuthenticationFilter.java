@@ -28,7 +28,9 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
             throws ServletException, IOException {
 
-        String token = extractJwtFromRequest(request);
+        String bearerToken = request.getHeader("Authorization");
+
+        String token = jwtTokenProvider.resolveToken(bearerToken);
 
         if (token != null && jwtTokenProvider.validateToken(token)) {
 
@@ -45,13 +47,5 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             }
         }
         filterChain.doFilter(request, response);
-    }
-
-    private String extractJwtFromRequest(HttpServletRequest request) {
-        String bearerToken = request.getHeader("Authorization");
-        if (bearerToken != null && bearerToken.startsWith("Bearer ")) {
-            return bearerToken.substring(7); // "Bearer " 이후의 토큰 문자열 반환
-        }
-        return null; // JWT가 없으면 null 반환
     }
 }

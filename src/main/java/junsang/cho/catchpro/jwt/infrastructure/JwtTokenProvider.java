@@ -5,18 +5,19 @@ import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import jakarta.annotation.PostConstruct;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
 import javax.crypto.SecretKey;
 import javax.crypto.spec.SecretKeySpec;
-import java.util.*;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Date;
 import java.util.stream.Collectors;
 
 @Component
@@ -102,7 +103,7 @@ public class JwtTokenProvider {
                         .collect(Collectors.toList());
 
         // Security User 객체 생성
-        User principal = new User(claims.getSubject(), "", authorities);
+        UserPrincipal principal = new UserPrincipal(claims.getSubject(), "", authorities);
 
         return new UsernamePasswordAuthenticationToken(principal, token, authorities);
     }
@@ -114,4 +115,10 @@ public class JwtTokenProvider {
         return Math.max(0, expiration.getTime() - now); // 이미 만료되었으면 0 반환
     }
 
+    public String resolveToken(String bearerToken) {
+        if (bearerToken != null && bearerToken.startsWith("Bearer ")) {
+            return bearerToken.substring(7); // "Bearer " 이후의 토큰 문자열 반환
+        }
+        return null; // JWT가 없으면 null 반환
+    }
 }

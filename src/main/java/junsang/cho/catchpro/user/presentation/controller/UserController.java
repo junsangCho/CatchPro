@@ -3,7 +3,6 @@ package junsang.cho.catchpro.user.presentation.controller;
 import jakarta.validation.Valid;
 import junsang.cho.catchpro.auth.presentation.dto.request.JoinRequest;
 import junsang.cho.catchpro.common.dto.response.CommonResponse;
-import junsang.cho.catchpro.user.application.dto.command.JoinCommand;
 import junsang.cho.catchpro.user.application.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;

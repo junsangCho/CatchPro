@@ -82,8 +82,8 @@ management:
 app:
   jwt:
     secret: eyJOaWNrTmFtZSI6IkVyanVlciIsIlRlbXBBdXRoIjoiWSIsIktFWSI6IkhlbGxvV29ybGQiLCJBZ2UiOiIyOSIsInN1YiI6IlRlc3QiLCJleHAiOjE2MzUxNzg4NTF1
-    expiration: 300000
-    refresh-expiration: 36000000000
+    expiration: 1000 * 60 * 30
+    refresh-expiration: 1000 * 60 * 60 * 24 * 14
 
 #로깅 시스템 체계화
 logging:
